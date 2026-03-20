@@ -1,0 +1,229 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="https://fonts.googleapis.com/css2?family=Modak&family=Azeret+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{height:100%;background:#f0ead8}
+body{background:#f0ead8;font-family:'Azeret Mono',monospace;color:#2a1a12;display:flex;flex-direction:column;align-items:center;-webkit-tap-highlight-color:transparent;height:100dvh;overflow:hidden;padding:max(env(safe-area-inset-top),8px) max(env(safe-area-inset-right),10px) max(env(safe-area-inset-bottom),8px) max(env(safe-area-inset-left),10px)}
+.hdr{width:100%;max-width:520px;display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;flex-shrink:0;padding:0 2px}
+.yr{font-weight:700;font-size:.8rem;color:#e8157a}
+.dt{font-weight:700;font-size:.95rem;letter-spacing:.08em;color:#e8157a}
+.info{width:100%;max-width:520px;border:1.5px solid #e8157a;display:grid;grid-template-columns:1fr 2fr;margin-bottom:6px;flex-shrink:0}
+.nc{border-right:1.5px solid #e8157a;padding:6px 8px;font-weight:700;font-size:.62rem;letter-spacing:.12em;display:flex;flex-direction:column;gap:3px;color:#e8157a}
+.ni{border:none;border-bottom:1.5px solid #e8157a;background:transparent;font-family:'Azeret Mono',monospace;font-size:.72rem;outline:none;width:100%;padding:2px 0;color:#2a1a12}
+.hc{padding:6px 8px}
+.ht{font-weight:700;font-size:.6rem;letter-spacing:.12em;margin-bottom:2px;color:#e8157a}
+.hb{font-size:.56rem;line-height:1.45;color:#4a3828}
+.title{font-family:'Modak',sans-serif;font-size:clamp(1.4rem,6vw,2.6rem);color:#2a1a12;text-align:center;line-height:1;margin-bottom:6px;text-shadow:2px 2px 0 rgba(42,26,18,.13);flex-shrink:0}
+.grid-wrap{width:100%;max-width:520px;flex:1;min-height:0;display:flex;align-items:stretch}
+.grid{width:100%;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr);border-left:1px solid #2a1a12;border-top:1px solid #2a1a12;position:relative}
+.cell{border-right:1px solid #2a1a12;border-bottom:1px solid #2a1a12;padding:3px 2px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer;background:#e8e0cc;transition:background .13s;position:relative;user-select:none;overflow:hidden;-webkit-tap-highlight-color:rgba(232,21,122,0.15)}
+.cell:active{background:#d4cbb5}
+.ct{font-size:clamp(.38rem,1.8vw,.55rem);font-weight:700;letter-spacing:.03em;line-height:1.35;text-transform:uppercase;color:#2a1a12;display:flex;align-items:center;justify-content:center;text-align:center;width:100%;word-break:break-word}
+.free{cursor:default;background:#4A2619}
+.free:active{background:#4A2619}
+.free-text{font-family:'Modak',sans-serif;font-size:clamp(.7rem,3.5vw,1rem);color:#e8157a;line-height:1.2;text-align:center}
+.nl{width:100%;margin-top:2px;display:flex;flex-direction:column;gap:1px;align-items:center}
+.nt{font-size:clamp(.3rem,1.2vw,.42rem);font-weight:700;background:#e8157a;color:#fff;padding:1px 2px;border-radius:2px;letter-spacing:.03em;text-transform:uppercase;word-break:break-all;max-width:100%}
+.cell.chk{background:#c8bfa4}
+.mo{display:none;position:fixed;inset:0;background:rgba(42,26,18,.55);z-index:100;align-items:center;justify-content:center;padding:16px}
+.mo.open{display:flex}
+.md{background:#f0ead8;border:2px solid #2a1a12;padding:20px 16px;width:100%;max-width:460px;display:flex;flex-direction:column;gap:10px;box-shadow:4px 4px 0 #2a1a12;max-height:80dvh;overflow-y:auto}
+.md h2{font-family:'Modak',sans-serif;font-size:1.2rem;color:#e8157a}
+.md p{font-size:.65rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;line-height:1.5}
+.mni{font-family:'Azeret Mono',monospace;font-size:16px;border:1.5px solid #2a1a12;background:transparent;padding:10px;outline:none;color:#2a1a12;width:100%;border-radius:0;-webkit-appearance:none}
+.mni:focus{border-color:#e8157a}
+.mns{display:flex;flex-wrap:wrap;gap:4px;min-height:14px}
+.mnt{font-size:.58rem;font-weight:700;background:#e8157a;color:#fff;padding:3px 7px;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;border:none;border-radius:2px}
+.mh{font-size:.52rem;color:#7a6858;letter-spacing:.06em;text-transform:uppercase}
+.ma{display:flex;gap:8px}
+.btn{font-family:'Azeret Mono',monospace;font-weight:700;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid #2a1a12;padding:12px 14px;cursor:pointer;flex:1;border-radius:0;-webkit-appearance:none}
+.bp{background:#2a1a12;color:#f0ead8}
+.bp:active{background:#e8157a;border-color:#e8157a}
+.bc{background:transparent;color:#2a1a12}
+.bc:active{background:#d9cdb8}
+.toast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(80px);background:#2a1a12;color:#f0ead8;font-family:'Modak',sans-serif;font-size:1.3rem;letter-spacing:.08em;padding:10px 24px;border:2px solid #e8157a;z-index:200;transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .4s;opacity:0;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+</style>
+
+<div class="hdr"><span class="yr">2026</span><span class="dt">3 月 &nbsp;21 日</span></div>
+<div class="info">
+  <div class="nc"><span>NAME:</span><input class="ni" type="text" placeholder="your name"></div>
+  <div class="hc"><div class="ht">HOW TO PLAY:</div><div class="hb">Mingle with others. Check off each square by having a quick conversation with someone who matches the description. First person who gets bingo is entitled to a free item.</div></div>
+</div>
+<div class="title">BINGO CARD</div>
+<div class="grid-wrap"><div class="grid" id="grid"></div></div>
+
+<div class="mo" id="mo">
+  <div class="md">
+    <h2 id="mttl">Check Off</h2>
+    <p id="mdsc"></p>
+    <div class="mns" id="mns"></div>
+    <span class="mh" id="mhint"></span>
+    <input class="mni" id="mni" type="text" placeholder="Name of person you met…" maxlength="40" autocomplete="off" autocorrect="off" autocapitalize="words">
+    <div class="ma">
+      <button class="btn bc" id="mcanc">Cancel</button>
+      <button class="btn bp" id="mconf">Check Off ✓</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast">🎉 BINGO!</div>
+
+<script>
+const ALL_SQUARES=[
+  "HAS A PAIR OF SWALLOW SANDALS IN THE US","CURRENTLY ON 10% BATTERY RIGHT NOW","BEEN BURNED FROM KNALPOT","CRAZY COUSIN LORE","FAVORITE GORENGAN IS THE SAME AS YOURS",
+  "PAID MORE THAN $500 IN BRIBES","HAS TRIED DURIAN POP ICE","HAS A BATU AKIK RING","HAS SEEN POCONG (OR ANY OTHER INDO GHOST)","HAS AN UNCLE ON THEIR 2ND (OR 3RD) WIFE",
+  "HAS WON A 17-AN EVENT","LIVED IN AT LEAST 3 DIFFERENT COUNTRIES","HAS DELETED SOCIAL MEDIA BEFORE","HAS BIRTHMARK LIKE A SPECIFIC OBJECT",
+  "IS THE FAVORITE GRANDCHILD","HAS FAMILY GROUP CHAT MUTED ON WHATSAPP","KEEPS A LUCKY CHARM ON THEM","HAS AN ULEKAN IN THE US","ON THEIR SECOND KAYA SALT BREAD",
+  "MINYAK KAYU PUTIH IN THEIR BAG RIGHT NOW","CAN WIGGLE THEIR EARS","OWNS A FILM CAMERA","ADDS CORNED BEEF ON TOP OF THEIR INDOMIE","THOUGHT THE WORLD WOULD END IN 2012"
+];
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+
+const shuffled=shuffle(ALL_SQUARES);
+const SQUARES=[...shuffled.slice(0,12),null,...shuffled.slice(12)];
+const state=Array.from({length:25},(_,i)=>({checked:i===12,names:[]}));
+let activeCell=null;
+const grid=document.getElementById('grid');
+const cells=[];
+
+SQUARES.forEach((text,i)=>{
+  const cell=document.createElement('div');
+  cell.className='cell'+(i===12?' free':'');
+  if(i===12){
+    const fs=document.createElement('div');
+    fs.className='free-text';
+    fs.textContent='FREE SPACE';
+    cell.appendChild(fs);
+  } else {
+    const ct=document.createElement('div');
+    ct.className='ct';
+    ct.textContent=text;
+    const nl=document.createElement('div');
+    nl.className='nl';
+    cell.appendChild(ct);
+    cell.appendChild(nl);
+    cell.addEventListener('click',()=>openModal(i));
+  }
+  cells.push(cell);
+  grid.appendChild(cell);
+});
+
+const csvg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+csvg.style.cssText='position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:20;overflow:visible';
+grid.appendChild(csvg);
+
+const lineGroups={};
+function getLines(){
+  const L=[];
+  for(let r=0;r<5;r++) L.push([r*5,r*5+1,r*5+2,r*5+3,r*5+4]);
+  for(let c=0;c<5;c++) L.push([c,c+5,c+10,c+15,c+20]);
+  L.push([0,6,12,18,24]);L.push([4,8,12,16,20]);
+  return L;
+}
+function isComplete(idx){return idx.every(i=>state[i].checked);}
+
+function renderStrikes(){
+  const lines=getLines();
+  const gr=grid.getBoundingClientRect();
+  lines.forEach((idx,li)=>{
+    const complete=isComplete(idx);
+    if(complete&&!lineGroups[li]){
+      const f=cells[idx[0]].getBoundingClientRect();
+      const l=cells[idx[idx.length-1]].getBoundingClientRect();
+      const x1=f.left-gr.left+f.width*.1;
+      const y1=f.top-gr.top+f.height*.5;
+      const x2=l.left-gr.left+l.width*.9;
+      const y2=l.top-gr.top+l.height*.5;
+      const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+      const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1',x1);line.setAttribute('y1',y1);
+      line.setAttribute('x2',x2);line.setAttribute('y2',y2);
+      line.setAttribute('stroke','#e8157a');line.setAttribute('stroke-width','2.5');
+      line.setAttribute('stroke-linecap','round');
+      const len=Math.sqrt((x2-x1)**2+(y2-y1)**2);
+      line.style.cssText=`stroke-dasharray:${len};stroke-dashoffset:${len};transition:stroke-dashoffset .5s cubic-bezier(.4,0,.2,1)`;
+      g.appendChild(line);csvg.appendChild(g);lineGroups[li]=g;
+      setTimeout(()=>{line.style.strokeDashoffset=0;},30);
+    } else if(!complete&&lineGroups[li]){
+      csvg.removeChild(lineGroups[li]);delete lineGroups[li];
+    }
+  });
+}
+
+function renderCells(){
+  cells.forEach((cell,i)=>{
+    if(i===12) return;
+    const s=state[i];
+    cell.classList.toggle('chk',s.checked);
+    const nl=cell.querySelector('.nl');
+    nl.innerHTML='';
+    s.names.forEach(n=>{
+      const t=document.createElement('span');
+      t.className='nt';t.textContent=n;nl.appendChild(t);
+    });
+  });
+  renderStrikes();
+}
+
+const mo=document.getElementById('mo');
+const mttl=document.getElementById('mttl');
+const mdsc=document.getElementById('mdsc');
+const mns=document.getElementById('mns');
+const mhint=document.getElementById('mhint');
+const mni=document.getElementById('mni');
+
+function openModal(i){
+  activeCell=i;
+  const s=state[i];
+  mttl.textContent=s.checked?'CHECKED ✓':'CHECK OFF';
+  mdsc.textContent=SQUARES[i];
+  mni.value='';
+  renderMNames();
+  mhint.textContent=s.names.length>0?'Tap a name to remove':'';
+  mo.classList.add('open');
+  setTimeout(()=>mni.focus(),150);
+}
+function renderMNames(){
+  const s=state[activeCell];
+  mns.innerHTML='';
+  s.names.forEach((n,ni)=>{
+    const t=document.createElement('span');
+    t.className='mnt';t.textContent=n;
+    t.addEventListener('click',()=>{
+      s.names.splice(ni,1);
+      if(!s.names.length) s.checked=false;
+      renderMNames();
+      mhint.textContent=s.names.length>0?'Tap a name to remove':'';
+      renderCells();
+    });
+    mns.appendChild(t);
+  });
+}
+function closeModal(){mo.classList.remove('open');activeCell=null;mni.blur();}
+document.getElementById('mcanc').addEventListener('click',closeModal);
+mo.addEventListener('click',e=>{if(e.target===mo)closeModal();});
+mni.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('mconf').click();if(e.key==='Escape')closeModal();});
+document.getElementById('mconf').addEventListener('click',()=>{
+  if(activeCell===null) return;
+  const name=mni.value.trim();
+  const s=state[activeCell];
+  if(name){s.names.push(name);s.checked=true;mni.value='';renderMNames();mhint.textContent='Tap a name to remove';renderCells();checkBingo();}
+  if(!name) closeModal();
+});
+
+let lastBingo=0;
+function checkBingo(){
+  const n=getLines().filter(l=>isComplete(l)).length;
+  if(n>lastBingo){showToast();lastBingo=n;}
+}
+const toast=document.getElementById('toast');
+let tto;
+function showToast(){clearTimeout(tto);toast.classList.add('show');tto=setTimeout(()=>toast.classList.remove('show'),3000);}
+
+renderCells();
+window.addEventListener('resize',()=>{Object.keys(lineGroups).forEach(li=>{csvg.removeChild(lineGroups[li]);delete lineGroups[li];});renderStrikes();});
+</script>
